@@ -106,7 +106,7 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
-POSTGRES_LOCALLY = True
+POSTGRES_LOCALLY = False
 if POSTGRES_LOCALLY == True:
     DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
 
