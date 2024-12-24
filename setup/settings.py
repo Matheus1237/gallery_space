@@ -101,6 +101,15 @@ DATABASES = {
     }
 }
 
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
+POSTGRES_LOCALLY = False
+if POSTGRES_LOCALLY == True:
+    DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
