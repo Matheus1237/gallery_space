@@ -31,7 +31,7 @@ DEBUG = True
 
 # Other settings
 
-ALLOWED_HOSTS = ["*",]
+ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = ["https://galleryspace-production.up.railway.app",]
 
@@ -100,6 +100,14 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgresql://postgres:WGMlZOPsjbJPkTzulSMgzHparktVUYzq@postgres.railway.internal:5432/railway',
+        conn_max_age=600,
+        ssl_require=not DEBUG
+    )
+}
 
 DATABASES = {
     'default': {
