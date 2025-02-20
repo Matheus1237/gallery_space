@@ -10,11 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path, os
-from dotenv import load_dotenv
-import dj_database_url
-
-load_dotenv()
+from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,7 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = ["https://galleryspace-production.up.railway.app",]
+# CSRF_TRUSTED_ORIGINS = ["",]
 
 CSRF_COOKIE_SECURE = True
 
@@ -56,8 +53,6 @@ INSTALLED_APPS = [
 
     'apps.galeria.apps.GaleriaConfig',
     'apps.usuarios.apps.UsuariosConfig',
-
-    'storages'
 ]
 
 MIDDLEWARE = [
@@ -101,15 +96,6 @@ DATABASES = {
     }
 }
 
-import environ
-
-env = environ.Env()
-environ.Env.read_env()
-
-POSTGRES_LOCALLY = True
-if POSTGRES_LOCALLY == True:
-    DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -140,50 +126,22 @@ USE_I18N = True
 
 USE_TZ = True
 
-# AWS Configuração
-
-AWS_ACCESS_KEY_ID = str(os.getenv('AWS_ACCESS_KEY_ID'))
-
-AWS_SECRET_ACCESS_KEY = str(os.getenv('AWS_SECRET_ACCESS_KEY'))
-
-AWS_STORAGE_BUCKET_NAME = str(os.getenv('AWS_STORAGE_BUCKET_NAME'))
-
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-
-AWS_DEFAULT_ACL = 'public-read'
-
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400'
-}
-
-AWS_LOCATION = 'static'
-
-AWS_QUERYSTRING_AUTH = False
-
-AWS_HEADERS = {
-    'Access-Control-Allow-Origin': '*',
-}
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
-
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+# Static files (CSS, JavaScript, imagens)
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'setup/static')
+    os.path.join(BASE_DIR, 'setup/static')  # Diretório de arquivos estáticos no seu projeto
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Onde os arquivos estáticos serão coletados
 
-# Media
+# Media files (uploads)
+MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Diretório onde os arquivos de mídia são armazenados
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
