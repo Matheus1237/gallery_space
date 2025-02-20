@@ -36,7 +36,7 @@ CSRF_COOKIE_SECURE = True
 
 SESSION_COOKIE_SECURE = True
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
 
 CSRF_COOKIE_HTTPONLY = True
 
@@ -46,7 +46,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    # 'django.contrib.auth',
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
